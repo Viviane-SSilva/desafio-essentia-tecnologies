@@ -2,11 +2,7 @@
 
 import { prisma } from "@/lib/cliente"
 import { Request, Response } from "express"
-
-
-
-
-async function handleCreateTask(request:Request, response: Response) {
+import { Task } from "@/generated/prisma"
 
     interface RequestTask {
         title: string
@@ -14,16 +10,16 @@ async function handleCreateTask(request:Request, response: Response) {
 
     }
 
-    interface ResponseTask {
-        id: Number,
-        title: string,
-        description: string,
-        completed: Boolean
-    }
+    interface ResponseTask extends Task{}
+
+async function handleCreateTask(request:Request, response: Response) {
+
+
+    
 
     const { title, description}: RequestTask = request.body 
 
-   const task = await prisma.task.create({
+   const task: ResponseTask = await prisma.task.create({
     data:{
         title,
         description
