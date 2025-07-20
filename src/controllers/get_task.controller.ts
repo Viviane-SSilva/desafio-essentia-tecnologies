@@ -3,18 +3,24 @@ import { Request, Response } from "express"
 
 async function handleGetAllTask(request: Request, response: Response) {
 
-    const taskList = await prisma.task.findMany({
+    try {
+        const taskList = await prisma.task.findMany({
 
-    })
-
-    if (!taskList) {
-        return response.status(500).send({
-            error:"Erro de busca."
         })
+
+        if (!taskList) {
+            return response.status(500).send({
+                error: "Erro de busca."
+            })
+        }
+
+        return response.send(taskList)
+
+    } catch (error) {
+        return response.status(404).json({ message: "Task não encontrada", error });
     }
 
-    return response.send(taskList)
-    
+
 }
 
-export {handleGetAllTask}
+export { handleGetAllTask }
