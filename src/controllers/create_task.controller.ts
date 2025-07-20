@@ -1,43 +1,35 @@
 
-
 import { prisma } from "@/lib/cliente"
 import { Request, Response } from "express"
 import { Task } from "@/generated/prisma"
-
-interface RequestTask {
-    title: string
-    description: string,
-
-}
+import { z } from "zod";
 
 interface ResponseTask extends Task { }
 
 async function handleCreateTask(request: Request, response: Response) {
 
-    const { title, description }: RequestTask = request.body
+  
+    const schemaTask = z.object({
+        title: z.string().min(1, "O title é obrigatório"),
+        description: z.string().optional(),
+    });
 
-
-    console.log(title, description)
-
-    if (description == null || description == undefined) {
-        return response.status(400).send({
-            error: "faltando argumentos"
-        })
+    const result = schemaTask.safeParse(request.body);
+    if (!result.success) {
+        return response.status(400).json({
+            message: "Parametros inválidos",
+            errors: result.error
+        });
     }
 
-    if (title == null || title == undefined) {
-        return response.status(400).send({
-            error: "faltando argumentos"
-        })
-    }
+    const { title, description } = result.data;
 
-
-    const task: ResponseTask = await prisma.task.create({
+    const task = await prisma.task.create({
         data: {
             title,
             description
-        }
-    })
+        },
+    });
 
     if (!task) {
         return response.status(500).send({
