@@ -4,8 +4,8 @@ import { Request, Response } from "express"
 
 async function handleUpdateTask(request: Request, response: Response) {
 
-    const { id } = request.params;
-    const { title } = request.body;
+    const { id, title } = request.body;
+    
 
 
     const updateTask = await prisma.task.update({

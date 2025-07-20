@@ -8,7 +8,7 @@ const routes = Router()
 //
 routes.post("/create-task", handleCreateTask)
 routes.get("/get-task", handleGetAllTask)
-routes.put("/put-task/:id", handleUpdateTask)
+routes.put("/put-task", handleUpdateTask)
 routes.delete("/task/:id", handleDeleteTask )
 
 export {routes}
