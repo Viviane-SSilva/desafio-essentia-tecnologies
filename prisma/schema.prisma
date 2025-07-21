@@ -19,3 +19,14 @@ model Task {
 
   @@map("task")
 }
+
+model User {
+  id Int @id @default(autoincrement())
+  name String 
+  password_hash String
+  email String @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("user")
+}
