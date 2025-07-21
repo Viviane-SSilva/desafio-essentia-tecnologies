@@ -4,8 +4,11 @@ import { handleGetAllTask } from "@/controllers/get_task.controller";
 import { handleDeleteTask } from "../controllers/delete_task.controller";
 import { handleUpdateTask } from "@/controllers/put_task.controller";
 import { handleCompletedTask } from "@/controllers/completed_task.controller";
+import { routerAuth } from "./auth.routes";
 
 const routes = Router()
+
+routes.use(routerAuth)
 //
 routes.post("/create-task", handleCreateTask)
 routes.get("/get-task", handleGetAllTask)
