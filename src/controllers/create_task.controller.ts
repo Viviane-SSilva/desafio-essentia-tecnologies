@@ -12,6 +12,7 @@ async function handleCreateTask(request: Request, response: Response) {
         const schemaTask = z.object({
             title: z.string().min(1, "O title é obrigatório"),
             description: z.string().optional(),
+            userId: z.number().min(1, "O userId é obrigatório"),
         });
 
         const result = schemaTask.safeParse(request.body);
@@ -22,12 +23,13 @@ async function handleCreateTask(request: Request, response: Response) {
             });
         }
 
-        const { title, description } = result.data;
+        const { title, description, userId} = result.data;
 
         const task = await prisma.task.create({
             data: {
                 title,
-                description
+                description,
+                userId
             },
         });
 
