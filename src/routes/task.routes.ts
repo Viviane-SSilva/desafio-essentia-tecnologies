@@ -11,7 +11,7 @@ const routes = Router()
 routes.use(routerAuth)
 //
 routes.post("/create-task", handleCreateTask)
-routes.get("/get-task", handleGetAllTask)
+routes.post("/get-task", handleGetAllTask)
 routes.put("/put-task", handleUpdateTask)
 routes.put("/completed-task", handleCompletedTask) // Assuming this is for marking a task as completed
 routes.delete("/task/:id", handleDeleteTask )
