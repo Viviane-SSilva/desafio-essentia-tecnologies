@@ -1,0 +1,18 @@
+.app-container {
+  min-height: 100vh;
+  background: #1a1a1a;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.todo-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
