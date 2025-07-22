@@ -32,7 +32,8 @@ export class TaskService {
   private async loadTasks(): Promise<void> {
     try {
       const headers = this.getHeaders();
-      const response = await this.http.get<Task[]>(`${this.apiUrl}/get-task`, { headers }).toPromise();
+       const findTaskById = { userId: this.authService.getCurrentUser()?.id || 0 };
+      const response = await this.http.post<Task[]>(`${this.apiUrl}/get-task`, findTaskById, { headers }).toPromise();
       if (response) {
         this.tasksSubject.next(response);
       }
@@ -44,7 +45,7 @@ export class TaskService {
   async addTask(title: string): Promise<void> {
     try {
       const headers = this.getHeaders();
-      const newTask = { title, description: '' };
+      const newTask = { title, description: '', userId: this.authService.getCurrentUser()?.id || 0 };
       const response = await this.http.post<Task>(`${this.apiUrl}/create-task`, newTask, { headers }).toPromise();
       
       if (response) {
