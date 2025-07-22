@@ -1,14 +1,15 @@
 import { prisma } from "@/lib/cliente";
 import { Request, Response } from "express"
 import { z } from "zod";
+import id from "zod/v4/locales/id.cjs";
 
 
-async function handleUpdateTask(request: Request, response: Response) {
+async function handleCompletedTask(request: Request, response: Response) {
 
     try {
         const schemaTask = z.object({
             id: z.number().min(1, "ID must be a positive number"),
-            title: z.string().min(1, "Title is required"),
+            completed: z.boolean(),
         });
 
         const result = schemaTask.safeParse(request.body);
@@ -19,12 +20,12 @@ async function handleUpdateTask(request: Request, response: Response) {
             });
         }
 
-        const { id, title } = result.data
+        const { id, completed } = result.data
 
         const updateTask = await prisma.task.update({
             where: { id: Number(id) },
             data: {
-                title,
+                completed,
                 updateAt: new Date(),
             },
         })
@@ -37,4 +38,4 @@ async function handleUpdateTask(request: Request, response: Response) {
 }
 
 
-export { handleUpdateTask }
+export { handleCompletedTask }
