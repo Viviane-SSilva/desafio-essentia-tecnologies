@@ -176,7 +176,11 @@ export class LoginComponent {
   constructor(
     private router: Router,
     private authService: AuthService
-  ) {}
+  ) {
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['/todos']);
+    }
+  }
 
   onLogin() {
     if (this.loginData.email && this.loginData.password) {
