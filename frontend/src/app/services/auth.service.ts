@@ -28,7 +28,7 @@ export interface AuthResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://192.168.1.9:3000'; // Altere para a URL da sua API
+  private apiUrl = 'http://localhost:3000'; // Altere para a URL da sua API
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   private tokenSubject = new BehaviorSubject<string | null>(null);
 
