@@ -8,7 +8,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class TaskService {
-  private apiUrl = 'http://192.168.1.9:3000'; // URL da sua API
+  private apiUrl = 'http://localhost:3000'; // URL da sua API
   private tasksSubject = new BehaviorSubject<Task[]>([]);
 
   constructor(
